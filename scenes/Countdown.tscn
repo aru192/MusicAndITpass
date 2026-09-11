@@ -1,0 +1,721 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/Countdown.gd" id="1"]
+[ext_resource type="FontFile" path="res://assets/fonts/NotoSansJP-Regular.ttf" id="2_7foeq"]
+
+[sub_resource type="Theme" id="Theme_7foeq"]
+default_font = ExtResource("2_7foeq")
+default_font_size = 15
+CheckBox/colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+CheckBox/colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+CheckBox/colors/font_focus_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+CheckBox/colors/font_hover_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+CheckBox/colors/font_pressed_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+CheckButton/colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+CheckButton/colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+CheckButton/colors/font_focus_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+CheckButton/colors/font_hover_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+CheckButton/colors/font_pressed_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+HBoxContainer/constants/separation = 10
+Label/colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+VBoxContainer/constants/separation = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcxug"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wovf"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.87, 0.87, 0.87, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxnca"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.94, 0.94, 0.94, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bm8qg"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9098039, 0.9019608, 0.92941177, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htfvg"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4cm4"]
+content_margin_left = 22.0
+content_margin_top = 22.0
+content_margin_right = 22.0
+content_margin_bottom = 22.0
+bg_color = Color(0.9647059, 0.9607843, 0.9411765, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf4xv"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l16wr"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.40600002, 0.32752943, 0.7437647, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cs8t3"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.43866667, 0.35388237, 0.8036078, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gust"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9098039, 0.9019608, 0.92941177, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfsl4"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8e76k"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eo2ug"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.87, 0.87, 0.87, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tlpcc"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.94, 0.94, 0.94, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0aq1q"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9098039, 0.9019608, 0.92941177, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1ou0"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v2njf"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xt6dl"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.87, 0.87, 0.87, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekp3g"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.94, 0.94, 0.94, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_of0fv"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9098039, 0.9019608, 0.92941177, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icoxd"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_586wk"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1e2fo"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.87, 0.87, 0.87, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfqa3"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.94, 0.94, 0.94, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1v5hj"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9098039, 0.9019608, 0.92941177, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqty7"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdvgc"]
+content_margin_left = 22.0
+content_margin_top = 22.0
+content_margin_right = 22.0
+content_margin_bottom = 22.0
+bg_color = Color(0.9647059, 0.9607843, 0.9411765, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6r2y"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2uoo"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.87, 0.87, 0.87, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xf6bd"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.94, 0.94, 0.94, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0wtj"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9098039, 0.9019608, 0.92941177, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hskgx"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="Countdown" type="Control" unique_id=342684880]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource("Theme_7foeq")
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=167479291]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.9647059, 0.9607843, 0.9411765, 1)
+
+[node name="SafeArea" type="MarginContainer" parent="." unique_id=1078226145]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 24
+
+[node name="Center" type="HBoxContainer" parent="SafeArea" unique_id=1158416811]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Spacer1" type="Control" parent="SafeArea/Center" unique_id=1840039297]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="SafeArea/Center" unique_id=955991220]
+custom_minimum_size = Vector2(346, 0)
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="SafeArea/Center/Content" unique_id=366136362]
+layout_mode = 2
+
+[node name="Text1" type="Label" parent="SafeArea/Center/Content/Header" unique_id=1534907894]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 17
+text = "READY TO PLAY"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PauseButton" type="Button" parent="SafeArea/Center/Content/Header" unique_id=1903621328]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+tooltip_text = "一時停止"
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_focus_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_vcxug")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7wovf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jxnca")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_bm8qg")
+theme_override_styles/focus = SubResource("StyleBoxFlat_htfvg")
+text = "Ⅱ"
+
+[node name="Spacer1" type="Control" parent="SafeArea/Center/Content" unique_id=849064763]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Text1" type="Label" parent="SafeArea/Center/Content" unique_id=193715451]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+theme_override_font_sizes/font_size = 13
+text = "QUIZ COMPLETE"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="QuizSummary" type="Label" parent="SafeArea/Center/Content" unique_id=212474553]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 32
+text = "{correct} / 10 正解"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BonusSummary" type="Label" parent="SafeArea/Center/Content" unique_id=1476436993]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
+theme_override_font_sizes/font_size = 17
+text = "スコアボーナス ×{bonus}"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="CountLabel" type="Label" parent="SafeArea/Center/Content" unique_id=2061147851]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 104
+text = "3"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SongSummary" type="Label" parent="SafeArea/Center/Content" unique_id=519155121]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 18
+text = "{title}
+{bpm} BPM"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacer2" type="Control" parent="SafeArea/Center/Content" unique_id=1825197059]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Text2" type="Label" parent="SafeArea/Center/Content" unique_id=643029018]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 14
+text = "丸の中の輪が重なったら、タップ。"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacer2" type="Control" parent="SafeArea/Center" unique_id=303269291]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PauseDialog" type="CanvasLayer" parent="." unique_id=885397184]
+process_mode = 3
+layer = 10
+visible = false
+
+[node name="Shade1" type="ColorRect" parent="PauseDialog" unique_id=1702035262]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.09, 0.15, 0.72)
+
+[node name="Margin1" type="MarginContainer" parent="PauseDialog" unique_id=556945906]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource("Theme_7foeq")
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
+
+[node name="Center1" type="CenterContainer" parent="PauseDialog/Margin1" unique_id=1784060294]
+layout_mode = 2
+
+[node name="Panel1" type="PanelContainer" parent="PauseDialog/Margin1/Center1" unique_id=1053566066]
+custom_minimum_size = Vector2(334, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d4cm4")
+
+[node name="Column1" type="VBoxContainer" parent="PauseDialog/Margin1/Center1/Panel1" unique_id=584708123]
+layout_mode = 2
+
+[node name="Text1" type="Label" parent="PauseDialog/Margin1/Center1/Panel1/Column1" unique_id=371850513]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 23
+text = "ひとやすみ"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacer1" type="Control" parent="PauseDialog/Margin1/Center1/Panel1/Column1" unique_id=586774208]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Text2" type="Label" parent="PauseDialog/Margin1/Center1/Panel1/Column1" unique_id=1304130719]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 13
+text = "音楽とゲームを停止しています"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ResumeButton" type="Button" parent="PauseDialog/Margin1/Center1/Panel1/Column1" unique_id=996463168]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_sf4xv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l16wr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cs8t3")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_6gust")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kfsl4")
+text = "再開する"
+
+[node name="RestartButton" type="Button" parent="PauseDialog/Margin1/Center1/Panel1/Column1" unique_id=1426133350]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_focus_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_8e76k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eo2ug")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tlpcc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0aq1q")
+theme_override_styles/focus = SubResource("StyleBoxFlat_b1ou0")
+text = "ゲームを最初から"
+
+[node name="PauseMusicButton" type="Button" parent="PauseDialog/Margin1/Center1/Panel1/Column1" unique_id=2124122462]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_focus_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_v2njf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xt6dl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekp3g")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_of0fv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icoxd")
+text = "ミュージック選択へ"
+
+[node name="PauseTitleButton" type="Button" parent="PauseDialog/Margin1/Center1/Panel1/Column1" unique_id=1212568987]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_focus_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_586wk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1e2fo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nfqa3")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1v5hj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kqty7")
+text = "タイトルへ"
+
+[node name="ErrorDialog" type="CanvasLayer" parent="." unique_id=830386957]
+process_mode = 3
+layer = 10
+visible = false
+
+[node name="Shade1" type="ColorRect" parent="ErrorDialog" unique_id=1839407810]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.09, 0.15, 0.72)
+
+[node name="Margin1" type="MarginContainer" parent="ErrorDialog" unique_id=93047601]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource("Theme_7foeq")
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
+
+[node name="Center1" type="CenterContainer" parent="ErrorDialog/Margin1" unique_id=1256459581]
+layout_mode = 2
+
+[node name="Panel1" type="PanelContainer" parent="ErrorDialog/Margin1/Center1" unique_id=52770607]
+custom_minimum_size = Vector2(334, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mdvgc")
+
+[node name="Column1" type="VBoxContainer" parent="ErrorDialog/Margin1/Center1/Panel1" unique_id=912091500]
+layout_mode = 2
+
+[node name="Text1" type="Label" parent="ErrorDialog/Margin1/Center1/Panel1/Column1" unique_id=2126826592]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 23
+text = "エラー"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacer1" type="Control" parent="ErrorDialog/Margin1/Center1/Panel1/Column1" unique_id=892872089]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ErrorMessage" type="Label" parent="ErrorDialog/Margin1/Center1/Panel1/Column1" unique_id=1209626596]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3
+
+[node name="ErrorCloseButton" type="Button" parent="ErrorDialog/Margin1/Center1/Panel1/Column1" unique_id=1956539206]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_focus_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_pressed_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_hover_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_colors/font_disabled_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_j6r2y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j2uoo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xf6bd")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_o0wtj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hskgx")
+text = "閉じる"

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "mint_circuit",
+    "title": "Mint Circuit",
+    "artist": "BIT / BEAT · Original Demo",
+    "bpm": 120,
+    "duration": 48.0,
+    "beat_offset": 0.0,
+    "audio": "res://assets/music/mint_circuit.wav",
+    "jacket": "res://assets/images/mint_circuit.svg",
+    "difficulties": [
+      {
+        "id": "beginner",
+        "name": "BEGINNER",
+        "level": 1,
+        "colors": 3,
+        "rank_target": 4000,
+        "note_interval_beats": 4
+      },
+      {
+        "id": "normal",
+        "name": "NORMAL",
+        "level": 5,
+        "colors": 4,
+        "rank_target": 10000,
+        "note_interval_beats": 2
+      },
+      {
+        "id": "hard",
+        "name": "HARD",
+        "level": 10,
+        "colors": 5,
+        "rank_target": 23000,
+        "note_interval_beats": 1
+      }
+    ]
+  },
+  {
+    "id": "violet_sky",
+    "title": "Violet Sky",
+    "artist": "BIT / BEAT · Original Demo",
+    "bpm": 100,
+    "duration": 57.599999999999994,
+    "beat_offset": 0.0,
+    "audio": "res://assets/music/violet_sky.wav",
+    "jacket": "res://assets/images/violet_sky.svg",
+    "difficulties": [
+      {
+        "id": "beginner",
+        "name": "BEGINNER",
+        "level": 1,
+        "colors": 3,
+        "rank_target": 4000,
+        "note_interval_beats": 4
+      },
+      {
+        "id": "normal",
+        "name": "NORMAL",
+        "level": 5,
+        "colors": 4,
+        "rank_target": 10000,
+        "note_interval_beats": 2
+      },
+      {
+        "id": "hard",
+        "name": "HARD",
+        "level": 10,
+        "colors": 5,
+        "rank_target": 23000,
+        "note_interval_beats": 1
+      }
+    ]
+  },
+  {
+    "id": "peach_signal",
+    "title": "Peach Signal",
+    "artist": "BIT / BEAT · Original Demo",
+    "bpm": 140,
+    "duration": 41.14285714285714,
+    "beat_offset": 0.0,
+    "audio": "res://assets/music/peach_signal.wav",
+    "jacket": "res://assets/images/peach_signal.svg",
+    "difficulties": [
+      {
+        "id": "beginner",
+        "name": "BEGINNER",
+        "level": 1,
+        "colors": 3,
+        "rank_target": 4000,
+        "note_interval_beats": 4
+      },
+      {
+        "id": "normal",
+        "name": "NORMAL",
+        "level": 5,
+        "colors": 4,
+        "rank_target": 10000,
+        "note_interval_beats": 2
+      },
+      {
+        "id": "hard",
+        "name": "HARD",
+        "level": 10,
+        "colors": 5,
+        "rank_target": 23000,
+        "note_interval_beats": 1
+      }
+    ]
+  }
+]
