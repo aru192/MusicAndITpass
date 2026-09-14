@@ -26,7 +26,7 @@ func apply_volume() -> void:
 func play_song(song: Dictionary) -> bool:
 	stop()
 	track = song
-	var audio := load(str(song.audio)) as AudioStream
+	var audio := load_audio(str(song.audio))
 	if audio == null:
 		return false
 	player.stream = audio
@@ -69,3 +69,20 @@ func _on_finished() -> void:
 	if active:
 		active = false
 		song_finished.emit()
+
+func load_audio(path: String) -> AudioStream:
+	if path.begins_with("res://"): return load(path) as AudioStream
+	match path.get_extension().to_lower():
+		"wav": return AudioStreamWAV.load_from_file(path)
+		"mp3": return AudioStreamMP3.load_from_file(path)
+		"ogg": return AudioStreamOggVorbis.load_from_file(path)
+	return null
+
+func chart_for(song: Dictionary, difficulty: int) -> Array:
+	if not song.has("attacks"):
+		var stream := load_audio(str(song.audio))
+		song["attacks"] = AudioChart.analyze(stream) if stream else []
+	return AudioChart.notes(song.attacks, difficulty)
+
+func chart_position() -> float:
+	return song_position() - float(SaveManager.settings.offset_ms) / 1000.0

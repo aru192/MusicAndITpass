@@ -24,6 +24,13 @@ var rng := RandomNumberGenerator.new()
 var line: Line2D
 var field_style: StyleBoxFlat
 var scheduler := RhythmScheduler.new()
+var secondary_note: PuzzlePiece
+var note_kind := "tap"
+var hold_end := 0.0
+var hold_error := 0.0
+var pressed_notes: Dictionary = {}
+var pointer_notes: Dictionary = {}
+var holding := false
 var active_note: PuzzlePiece
 var note_due_beat := 0.0
 var rhythm_enabled := false
@@ -31,6 +38,12 @@ var beat_source: Callable = func() -> float: return MusicManager.beat_position()
 
 func start_rhythm(bpm: float, cadence_beats: float) -> void:
 	scheduler.configure(bpm, cadence_beats)
+	active_note = null
+	rhythm_enabled = true
+
+func start_chart(times: Array) -> void:
+	scheduler.configure_chart(times, float(SaveManager.settings.approach_seconds), GameData.selected_difficulty)
+	beat_source = func(): return MusicManager.chart_position()
 	active_note = null
 	rhythm_enabled = true
 
@@ -114,13 +127,16 @@ func _draw() -> void:
 		draw_arc(piece.position, radius - 4, PI * 1.15, PI * 1.75, 16, Color(1, 1, 1, 0.55), 2, true)
 		# Shape marks keep colors distinguishable without relying on hue alone.
 		_draw_mark(piece.position, piece.color_index)
-		if piece == active_note:
+		if piece == active_note or piece == secondary_note:
 			var target_radius := radius - 3.0
 			var ring := GameBalance.note_ring_progress(beat, note_due_beat, scheduler.lead_beats)
+			if holding: ring = clampf((hold_end - beat) / maxf(hold_end - note_due_beat, 0.01), 0.0, 1.0)
 			draw_arc(piece.position, target_radius, 0, TAU, 32, Color.WHITE, 2, true)
 			var ring_color := Color.WHITE if absf((beat - note_due_beat) * 60.0 / scheduler.bpm) <= GameBalance.PERFECT_WINDOW else UI.INK
 			draw_arc(piece.position, target_radius * ring, 0, TAU, 32, ring_color, 2.2, true)
 			draw_arc(piece.position, radius + 2, 0, TAU, 32, UI.PURPLE, 3, true)
+			if note_kind != "tap":
+				draw_string(UI.FONT, piece.position + Vector2(-14, 5), "長" if note_kind == "hold" else "同", HORIZONTAL_ALIGNMENT_CENTER, 28, 18, UI.INK)
 		if selected:
 			draw_arc(piece.position, radius + 1, 0, TAU, 32, Color.WHITE, 3, true)
 
@@ -143,6 +159,14 @@ func _draw_mark(center: Vector2, color_index: int) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if not enabled or settling:
 		return
+	if scheduler.chart_mode and note_kind != "tap":
+		if event is InputEventScreenTouch and event.pressed:
+			_special_press(event.index, event.position)
+			accept_event()
+		elif event is InputEventMouseButton and event.pressed and event.device != InputEvent.DEVICE_ID_EMULATION and event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT]:
+			_special_press(-int(event.button_index), event.position)
+			accept_event()
+		return
 	if event is InputEventScreenTouch:
 		if event.pressed and active_touch == -1:
 			active_touch = event.index
@@ -154,6 +178,13 @@ func _gui_input(event: InputEvent) -> void:
 			accept_event()
 
 func _input(event: InputEvent) -> void:
+	if not pointer_notes.is_empty():
+		if event is InputEventScreenTouch and not event.pressed: _special_release(event.index)
+		elif event is InputEventMouseButton and not event.pressed and event.device != InputEvent.DEVICE_ID_EMULATION: _special_release(-int(event.button_index))
+		elif event is InputEventScreenDrag:
+			_check_hold_position(event.index, get_global_transform_with_canvas().affine_inverse() * event.position)
+		elif event is InputEventMouseMotion and holding:
+			_check_hold_position(-1, get_global_transform_with_canvas().affine_inverse() * event.position)
 	if not dragging:
 		return
 	if event is InputEventScreenDrag and event.index == active_touch:
@@ -191,6 +222,7 @@ func move_drag(point: Vector2) -> void:
 	pointer = point
 
 func _try_connect(piece: PuzzlePiece) -> void:
+	if scheduler.chart_mode and note_kind != "tap": return
 	if piece == null:
 		return
 	if chain.size() >= 2 and piece == chain[-2]:
@@ -228,6 +260,7 @@ func _update_line() -> void:
 		line.add_point(piece.position)
 
 func cancel_drag() -> void:
+	_reset_special()
 	end_drag()
 	active_note = null
 	chain.clear()
@@ -241,6 +274,7 @@ func end_drag() -> void:
 	active_touch = -1
 
 func clear_chain() -> void:
+	if holding or secondary_note != null: return
 	if not enabled or settling:
 		return
 	var count := chain.size()
@@ -253,8 +287,13 @@ func clear_chain() -> void:
 	idle_time = 0
 
 func _update_rhythm(beat: float) -> void:
+	if holding:
+		if beat >= hold_end:
+			_complete_special(hold_error)
+		return
 	if active_note and (beat - note_due_beat) * 60.0 / scheduler.bpm > GameBalance.GOOD_WINDOW:
 		active_note = null
+		_reset_special()
 		note_missed.emit()
 	var due := scheduler.poll(beat, active_note == null and not settling)
 	if is_inf(due):
@@ -269,6 +308,23 @@ func _update_rhythm(beat: float) -> void:
 		return
 	active_note = candidates[rng.randi_range(0, candidates.size() - 1)]
 	note_due_beat = due
+	if scheduler.chart_mode:
+		note_kind = str(scheduler.current_event.get("kind", "tap"))
+		hold_end = float(scheduler.current_event.get("end", due))
+		if note_kind == "double":
+			# The pair forms a legal consecutive extension in either press order.
+			for first in candidates:
+				for second in pieces:
+					if second != first and not chain.has(second) and second.color_index == first.color_index and adjacent(first, second):
+						var blocked: Array[PuzzlePiece] = chain.duplicate()
+						blocked.append(first)
+						blocked.append(second)
+						if not _has_tail(second, blocked, maxi(0, GameBalance.MIN_CHAIN - blocked.size())): continue
+						active_note = first
+						secondary_note = second
+						break
+				if secondary_note != null: break
+			if secondary_note == null: note_kind = "tap"
 	queue_redraw()
 
 func note_candidates() -> Array[PuzzlePiece]:
@@ -340,3 +396,69 @@ func ensure_move() -> void:
 			piece.color_index = color
 	hint = find_move()
 	board_reshuffled.emit()
+
+func _reset_special() -> void:
+	secondary_note = null
+	pressed_notes.clear()
+	pointer_notes.clear()
+	holding = false
+	note_kind = "tap"
+
+func _special_press(id: int, point: Vector2) -> void:
+	if active_note == null or pointer_notes.has(id): return
+	var piece := piece_at(point)
+	if piece != active_note and piece != secondary_note: return
+	if piece == null or pressed_notes.has(piece): return
+	var error := float(beat_source.call()) - note_due_beat
+	if error < -GameBalance.GOOD_WINDOW: return
+	if error > GameBalance.GOOD_WINDOW: return
+	pointer_notes[id] = piece
+	pressed_notes[piece] = error
+	if note_kind == "hold":
+		holding = true
+		hold_error = error
+	elif pressed_notes.size() == 2:
+		var first := float(pressed_notes[active_note])
+		var second := float(pressed_notes[secondary_note])
+		if absf(first - second) <= 0.08:
+			_complete_special(first if absf(first) > absf(second) else second)
+		else:
+			active_note = null
+			_reset_special()
+			note_missed.emit()
+
+func _special_release(id: int) -> void:
+	if not pointer_notes.has(id): return
+	if holding:
+		if float(beat_source.call()) >= hold_end:
+			_complete_special(hold_error)
+		else:
+			active_note = null
+			_reset_special()
+			note_missed.emit()
+	else:
+		pressed_notes.erase(pointer_notes[id])
+		pointer_notes.erase(id)
+
+func _check_hold_position(id: int, point: Vector2) -> void:
+	if holding and pointer_notes.has(id) and point.distance_to(active_note.position) > radius * 1.5:
+		_special_release(id)
+
+func _complete_special(error: float) -> void:
+	var targets: Array = [active_note]
+	if secondary_note != null: targets.append(secondary_note)
+	for piece in targets:
+		chain.append(piece)
+		piece_pressed.emit(chain.size(), error)
+	active_note = null
+	_reset_special()
+	_update_line()
+	chain_changed.emit(chain.size())
+	queue_redraw()
+
+func suspend_input() -> void:
+	# Pause interrupts a held gesture without granting a score or a miss.
+	if holding or not pointer_notes.is_empty():
+		active_note = null
+		_reset_special()
+	end_drag()

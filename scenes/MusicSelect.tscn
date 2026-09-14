@@ -961,7 +961,7 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
 theme_override_font_sizes/font_size = 12
-text = "{bpm} BPM  /  {duration}秒"
+text = "音源解析  /  {duration}秒"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -1001,7 +1001,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_dva8r")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_m26r2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_4j5yf")
 toggle_mode = true
-text = "{name}   Lv.{level}   {interval}拍ごと"
+text = "{name}   Lv.{level}   自動譜面"
 
 [node name="Difficulty1" type="Button" parent="SafeArea/Center/Content/BodyScroll1/SongDetails/Difficulties" unique_id=1132232831]
 custom_minimum_size = Vector2(0, 52)
@@ -1019,7 +1019,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_dva8r")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_qgna5")
 theme_override_styles/focus = SubResource("StyleBoxFlat_jc7qg")
 toggle_mode = true
-text = "{name}   Lv.{level}   {interval}拍ごと"
+text = "{name}   Lv.{level}   自動譜面"
 
 [node name="Difficulty2" type="Button" parent="SafeArea/Center/Content/BodyScroll1/SongDetails/Difficulties" unique_id=1018089182]
 custom_minimum_size = Vector2(0, 52)
@@ -1037,7 +1037,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_wy7fd")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_h8tjn")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6fywf")
 toggle_mode = true
-text = "{name}   Lv.{level}   {interval}拍ごと"
+text = "{name}   Lv.{level}   自動譜面"
 
 [node name="Panel1" type="PanelContainer" parent="SafeArea/Center/Content/BodyScroll1/SongDetails" unique_id=1298505260]
 layout_mode = 2

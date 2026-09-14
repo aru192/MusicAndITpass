@@ -52,11 +52,12 @@ func bind_screen() -> void:
 	connect_button("ClearButton", board.clear_chain)
 	_update_stats()
 	MusicManager.song_finished.connect(_finish)
+	var chart := MusicManager.chart_for(GameData.music(), GameData.selected_difficulty)
 	if not MusicManager.play_song(GameData.music()):
 		board.enabled = false
 		show_error(audio_error_text)
 	else:
-		board.start_rhythm(float(GameData.music().bpm), float(GameData.difficulty().note_interval_beats))
+		board.start_chart(chart)
 
 func _process(_delta: float) -> void:
 	if ended or not MusicManager.active:
@@ -97,7 +98,7 @@ func _on_note_missed() -> void:
 
 func on_pause() -> void:
 	if board:
-		board.end_drag()
+		board.suspend_input()
 
 func _finish() -> void:
 	if ended:

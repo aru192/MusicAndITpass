@@ -3,7 +3,7 @@ extends Node
 signal save_failed
 var save_path := "user://progress.cfg"
 var records: Dictionary = {}
-var settings: Dictionary = {"volume": 0.7, "offset_ms": 0.0, "reduced_motion": false}
+var settings: Dictionary = {"approach_seconds": 0.9, "volume": 0.7, "offset_ms": 0.0, "reduced_motion": false}
 var last_error := ""
 
 func _ready() -> void:
@@ -19,6 +19,7 @@ func load_progress() -> void:
 	var stored: Variant = config.get_value("progress", "records", {})
 	if stored is Dictionary:
 		records = stored
+	settings.approach_seconds = clampf(float(config.get_value("settings", "approach_seconds", 0.9)), 0.4, 2.0)
 	settings.volume = clampf(float(config.get_value("settings", "volume", 0.7)), 0.0, 1.0)
 	settings.offset_ms = clampf(float(config.get_value("settings", "offset_ms", 0.0)), -300.0, 300.0)
 	settings.reduced_motion = bool(config.get_value("settings", "reduced_motion", false))

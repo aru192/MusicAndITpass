@@ -35,6 +35,8 @@ func _run() -> void:
 	_test_save()
 	_test_ring()
 	_test_scheduler()
+	_test_audio_chart()
+	await _test_special_notes()
 	await _test_board()
 	await _test_editor_edits()
 	await _test_layouts()
@@ -481,3 +483,126 @@ func _test_editor_edits() -> void:
 	GameData.selected_music = 0
 	GameData.selected_difficulty = 0
 	GameData.reset_quiz()
+
+func _test_audio_chart() -> void:
+	var envelope: Array[float] = []
+	envelope.resize(500)
+	envelope.fill(0.0)
+	for index in [103, 181, 297, 411]: envelope[index] = 0.5
+	var attacks := AudioChart.detect(envelope, 0.01)
+	check(attacks.size() == 4, "irregular attacks detected; silence has no notes")
+	var times := AudioChart.notes(attacks, 2)
+	check(times.size() == 4 and is_equal_approx(times[1], 1.81), "chart retains off-grid audio timestamps")
+	var scheduler := RhythmScheduler.new()
+	scheduler.configure_chart(times)
+	check(is_equal_approx(scheduler.poll(0.72, true), 1.03), "chart previews first attack")
+	check(is_inf(scheduler.poll(1.2, true)), "no invented periodic note")
+	check(is_inf(scheduler.poll(6.0, true)), "chart ends without catchup burst")
+	for song in GameData.music_catalog:
+		var notes := MusicManager.chart_for(song, 2)
+		check(notes.size() > 10, "actual audio decodes to a playable chart")
+		for i in range(1, notes.size()):
+			check(float(notes[i]) - float(notes[i - 1]) >= 0.55, "single ring has time for late judgment and next preview")
+
+	var original_root := GameData.library_root
+	var original_catalog := GameData.music_catalog.duplicate(true)
+	GameData.library_root = "/tmp/music-import-test-%d/" % OS.get_process_id()
+	DirAccess.make_dir_recursive_absolute(GameData.library_root)
+	var source := ProjectSettings.globalize_path("res://assets/music/mint_circuit.wav")
+	check(GameData.import_song(source).is_empty(), "external WAV imports and persists")
+	var imported := GameData.music().duplicate(true)
+	check(imported.get("imported", false) and FileAccess.file_exists(imported.audio), "import retains its own audio copy")
+	check(MusicManager.play_song(imported), "imported audio can play")
+	MusicManager.stop()
+	check(GameData.import_song(source).is_empty() and GameData.music_catalog.size() == 4, "duplicate import selects existing song")
+	GameData.music_catalog = original_catalog.duplicate(true)
+	GameData.load_imports()
+	check(GameData.music_catalog.size() == 4, "saved library reloads")
+	GameData.music_catalog = original_catalog
+	GameData.selected_music = 0
+	GameData.library_root = original_root
+
+func _test_special_notes() -> void:
+	var times: Array = []
+	for i in 40: times.append(1.1 + i * 0.6)
+	for difficulty in 3:
+		var chart := AudioChart.playable(times, difficulty, 0.9)
+		var kinds: Array = chart.map(func(event: Dictionary): return event.kind)
+		check(kinds.has("hold") == (difficulty >= 1), "hold difficulty gate")
+		check(kinds.has("double") == (difficulty == 2), "double difficulty gate")
+		for i in range(1, chart.size()):
+			check(float(chart[i].time) - float(chart[i - 1].end) >= 1.1, "full approach window after previous note")
+	var slow := RhythmScheduler.new()
+	slow.configure_chart(times, 2.0, 2)
+	check(is_equal_approx(slow.lead_beats, 2.0), "configured approach duration retained")
+	var original: float = SaveManager.settings.approach_seconds
+	SaveManager.settings.approach_seconds = 1.7
+	SaveManager.persist()
+	SaveManager.settings.approach_seconds = 0.9
+	SaveManager.load_progress()
+	check(is_equal_approx(SaveManager.settings.approach_seconds, 1.7), "approach setting persists")
+	SaveManager.settings.approach_seconds = original
+	var board := PuzzleManager.new()
+	board.size = Vector2(360, 400)
+	add_child(board)
+	await get_tree().process_frame
+	board.scheduler.configure_chart([], 0.9, 2)
+	var clock := [2.0]
+	board.beat_source = func(): return clock[0]
+	var hits: Array = []
+	var misses: Array = []
+	board.piece_pressed.connect(func(length: int, error: float): hits.append([length, error]))
+	board.note_missed.connect(func(): misses.append(true))
+	var move := board.find_move()
+	board.active_note = move[0]
+	board.note_kind = "hold"
+	board.note_due_beat = 2.0
+	board.hold_end = 2.7
+	board._special_press(0, move[0].position)
+	check(board.holding and hits.is_empty(), "hold onset does not score before completion")
+	clock[0] = 2.4
+	board._special_release(0)
+	check(misses.size() == 1 and hits.is_empty(), "early hold release misses once")
+	board._special_release(0)
+	check(misses.size() == 1, "repeat release does not double miss")
+	clock[0] = 3.0
+	board.active_note = move[0]
+	board.note_kind = "hold"
+	board.note_due_beat = 3.0
+	board.hold_end = 3.7
+	board._special_press(0, move[0].position)
+	clock[0] = 3.7
+	board._update_rhythm(3.7)
+	check(hits.size() == 1 and board.chain.size() == 1, "completed hold scores and connects once")
+	board.cancel_drag()
+	clock[0] = 4.0
+	board.active_note = move[0]
+	board.secondary_note = move[1]
+	board.note_due_beat = 4.0
+	board.note_kind = "double"
+	board._special_press(0, move[1].position)
+	check(hits.size() == 1, "one side of double does not score")
+	board._special_press(0, move[0].position)
+	check(hits.size() == 1, "same pointer cannot satisfy both sides")
+	clock[0] = 4.04
+	board._special_press(1, move[0].position)
+	check(hits.size() == 3 and board.chain.size() == 2, "two concurrent pointers score in either order")
+	board.cancel_drag()
+	clock[0] = 5.0
+	board.active_note = move[0]
+	board.secondary_note = move[1]
+	board.note_due_beat = 5.0
+	board.note_kind = "double"
+	board._special_press(-1, move[0].position)
+	clock[0] = 5.12
+	board._special_press(-2, move[1].position)
+	check(misses.size() == 2 and hits.size() == 3, "sequential presses outside simultaneous tolerance fail")
+	board.active_note = move[0]
+	board.note_kind = "hold"
+	board.note_due_beat = 5.12
+	board.hold_end = 6.0
+	board._special_press(0, move[0].position)
+	board.suspend_input()
+	check(not board.holding and board.pointer_notes.is_empty() and hits.size() == 3, "pause clears held pointers without phantom completion")
+	board.queue_free()
+	await get_tree().process_frame

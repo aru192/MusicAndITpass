@@ -984,14 +984,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
 theme_override_font_sizes/font_size = 15
 text = "03  同じ色をつないで消す
-隣の同色の丸を、拍に合わせて順番にタップ。指を離しても接続が続きます。3個以上つないだら「消す」を押そう。"
+隣の同色の丸を、曲の音に合わせて順番にタップ。指を離しても接続が続きます。3個以上つないだら「消す」を押そう。"
 autowrap_mode = 3
 
 [node name="HelpTimingGuide" type="Label" parent="HelpDialog/Margin1/Center1/Panel1/Column1" unique_id=1858962220]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
 theme_override_font_sizes/font_size = 12
-text = "出現ペースはBEGINNERが4拍、NORMALが2拍、HARDが1拍ごと。輪のない丸は加点されず、見逃すとMISSになります。"
+text = "音源の立ち上がりに合わせて輪が出現します。NORMALから長押し、HARDでは同時押しも出現。長押しは輪が消えるまで、同時押しは2本指かマウス左右ボタンで押します。輪のない丸は加点されず、見逃すとMISSになります。"
 autowrap_mode = 3
 
 [node name="HelpCloseButton" type="Button" parent="HelpDialog/Margin1/Center1/Panel1/Column1" unique_id=699241229]
@@ -1086,8 +1086,23 @@ step = 5.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
 theme_override_font_sizes/font_size = 12
-text = "＋で判定の拍を遅らせます。音よりリングが早く感じるときは＋へ。"
+text = "＋で判定のタイミングを遅らせます。音よりリングが早く感じるときは＋へ。"
 autowrap_mode = 3
+
+[node name="ApproachLabel" type="Label" parent="SettingsDialog/Margin1/Center1/Panel1/Column1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14117648, 0.15294118, 0.21960784, 1)
+theme_override_font_sizes/font_size = 16
+text = "出現からタップまで  {seconds} 秒"
+autowrap_mode = 3
+
+[node name="ApproachSlider" type="HSlider" parent="SettingsDialog/Margin1/Center1/Panel1/Column1"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+min_value = 0.4
+max_value = 2.0
+step = 0.1
+value = 0.9
 
 [node name="MotionToggle" type="CheckButton" parent="SettingsDialog/Margin1/Center1/Panel1/Column1" unique_id=1287304933]
 custom_minimum_size = Vector2(0, 48)

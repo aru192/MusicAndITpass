@@ -637,7 +637,7 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
 theme_override_font_sizes/font_size = 11
-text = "{difficulty} · {bpm} BPM"
+text = "{difficulty} · 音源解析"
 autowrap_mode = 3
 
 [node name="ComboLabel" type="Label" parent="SafeArea/Center/Content/SongRow" unique_id=2010976898]
@@ -685,7 +685,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.46666667, 0.3764706, 0.85490197, 1)
 theme_override_font_sizes/font_size = 18
-text = "輪が出た丸を、拍でタップ"
+text = "輪が出た丸を、音に合わせてタップ"
 autowrap_mode = 3
 
 [node name="ChainLabel" type="Label" parent="SafeArea/Center/Content/Row4/Column1" unique_id=1762153294]
@@ -754,7 +754,7 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45882353, 0.46666667, 0.5411765, 1)
 theme_override_font_sizes/font_size = 11
-text = "QUIZ BOOST ×{bonus}  ·  {interval}拍ごとに出現"
+text = "QUIZ BOOST ×{bonus}  ·  曲の音に合わせて出現"
 horizontal_alignment = 1
 autowrap_mode = 3
 
